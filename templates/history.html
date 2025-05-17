@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query History - Prompt Engineering System</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="navbar-brand">Prompt Engineering System</div>
+            <div class="navbar-links">
+                <a href="/">Home</a>
+                <a href="/history" class="active">History</a>
+                <a href="/templates">Templates</a>
+            </div>
+        </nav>
+        
+        <div class="main">
+            <h1>Query History</h1>
+            
+            <div class="history-list">
+                {% if history %}
+                    {% for item in history %}
+                        <div class="history-item">
+                            <div class="history-header">
+                                <h3>{{ item.user_query }}</h3>
+                                <span class="timestamp">{{ item.created_at }}</span>
+                            </div>
+                            
+                            <div class="history-details">
+                                <div class="tabs">
+                                    <button class="tab-button active" data-tab="research-{{ item.id }}">Research</button>
+                                    <button class="tab-button" data-tab="prompt-{{ item.id }}">Optimized Prompt</button>
+                                    <button class="tab-button" data-tab="evaluation-{{ item.id }}">Evaluation</button>
+                                </div>
+                                
+                                <div class="tab-content">
+                                    <div id="research-{{ item.id }}" class="tab-pane active">
+                                        <pre class="output-box">{{ item.research_output }}</pre>
+                                    </div>
+                                    
+                                    <div id="prompt-{{ item.id }}" class="tab-pane">
+                                        <pre class="output-box">{{ item.optimized_prompt }}</pre>
+                                    </div>
+                                    
+                                    <div id="evaluation-{{ item.id }}" class="tab-pane">
+                                        <pre class="output-box">{{ item.evaluation_output }}</pre>
+                                    </div>
+                                </div>
+                                
+                                {% if item.feedback %}
+                                <div class="feedback-display">
+                                    <h4>Feedback</h4>
+                                    <div class="rating-display">
+                                        <div class="rating-item">
+                                            <span>Effectiveness:</span>
+                                            <div class="stars">
+                                                {% for i in range(5) %}
+                                                    {% if i < (item.feedback.effectiveness_rating / 2) %}
+                                                        <span class="star filled">★</span>
+                                                    {% else %}
+                                                        <span class="star">★</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="rating-item">
+                                            <span>Clarity:</span>
+                                            <div class="stars">
+                                                {% for i in range(5) %}
+                                                    {% if i < (item.feedback.clarity_rating / 2) %}
+                                                        <span class="star filled">★</span>
+                                                    {% else %}
+                                                        <span class="star">★</span>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if item.feedback.comments %}
+                                        <div class="feedback-comments">
+                                            <p>{{ item.feedback.comments }}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <p>No query history available.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/scripts.js"></script>
+</body>
+</html>

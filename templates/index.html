@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering System</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Multi-Agent Prompt Engineering System</h1>
+            <p class="subtitle">Transform simple queries into optimized prompts with AI agents</p>
+        </header>
+        
+        <div class="main">
+            <div class="query-section">
+                <h2>Enter Your Query</h2>
+                <p>Our multi-agent system will research your query and create an optimized prompt for LLMs.</p>
+                
+                <textarea id="queryInput" placeholder="Enter your query here. For example: 'Create a web scraper that collects product prices'"></textarea>
+                
+                <button id="submitQuery" class="primary-button">Generate Optimized Prompt</button>
+                
+                <div id="status" class="status-message"></div>
+            </div>
+            
+            <div id="results" class="results-section" style="display:none;">
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="research">Research</button>
+                    <button class="tab-button" data-tab="prompt">Optimized Prompt</button>
+                    <button class="tab-button" data-tab="evaluation">Evaluation</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div id="research-tab" class="tab-pane active">
+                        <h3>Research Analysis</h3>
+                        <pre id="researchOutput" class="output-box"></pre>
+                    </div>
+                    
+                    <div id="prompt-tab" class="tab-pane">
+                        <h3>Optimized Prompt</h3>
+                        <pre id="promptOutput" class="output-box"></pre>
+                        <button id="copyPrompt" class="secondary-button">Copy to Clipboard</button>
+                    </div>
+                    
+                    <div id="evaluation-tab" class="tab-pane">
+                        <h3>Prompt Evaluation</h3>
+                        <pre id="evaluationOutput" class="output-box"></pre>
+                    </div>
+                </div>
+                
+                <div class="feedback-section">
+                    <h3>Provide Feedback</h3>
+                    <div class="rating-group">
+                        <div class="rating-item">
+                            <label>Effectiveness</label>
+                            <div class="star-rating" id="effectivenessRating">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </div>
+                        </div>
+                        <div class="rating-item">
+                            <label>Clarity</label>
+                            <div class="star-rating" id="clarityRating">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <textarea id="feedbackComments" placeholder="Additional comments (optional)"></textarea>
+                    <button id="submitFeedback" class="secondary-button">Submit Feedback</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Powered by CrewAI and Llama 3.3</p>
+        </footer>
+    </div>
+    
+    <script src="/static/scripts.js"></script>
+</body>
+</html>

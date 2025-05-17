@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Library - Prompt Engineering System</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="navbar-brand">Prompt Engineering System</div>
+            <div class="navbar-links">
+                <a href="/">Home</a>
+                <a href="/history">History</a>
+                <a href="/templates" class="active">Templates</a>
+            </div>
+        </nav>
+        
+        <div class="main">
+            <div class="templates-header">
+                <h1>Prompt Templates</h1>
+                <button id="newTemplateButton" class="primary-button">Add New Template</button>
+            </div>
+            
+            <div class="template-filters">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="data_analysis">Data Analysis</option>
+                    <option value="web_development">Web Development</option>
+                    <option value="machine_learning">Machine Learning</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="templates-list">
+                {% if templates %}
+                    {% for template in templates %}
+                        <div class="template-card" data-category="{{ template.category }}">
+                            <div class="template-header">
+                                <h3>{{ template.name }}</h3>
+                                <span class="template-category">{{ template.category }}</span>
+                            </div>
+                            
+                            <div class="template-description">
+                                <p>{{ template.description }}</p>
+                            </div>
+                            
+                            <div class="template-keywords">
+                                {% if template.keywords %}
+                                    {% for keyword in template.keywords.split(',') %}
+                                        <span class="keyword">{{ keyword }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                            <button class="view-template" data-id="{{ template.id }}">View Template</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <p>No templates available.</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Template Modal -->
+            <div id="templateModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2 id="modalTitle">Template</h2>
+                    <pre id="templateContent" class="output-box"></pre>
+                    <button id="copyTemplate" class="secondary-button">Copy to Clipboard</button>
+                </div>
+            </div>
+            
+            <!-- New Template Modal -->
+            <div id="newTemplateModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Add New Template</h2>
+                    
+                    <form id="newTemplateForm">
+                        <div class="form-group">
+                            <label for="templateName">Name</label>
+                            <input type="text" id="templateName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="templateCategory">Category</label>
+                            <select id="templateCategory" required>
+                                <option value="data_analysis">Data Analysis</option>
+                                <option value="web_development">Web Development</option>
+                                <option value="machine_learning">Machine Learning</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="templateDescription">Description</label>
+                            <textarea id="templateDescription" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="templateKeywords">Keywords (comma separated)</label>
+                            <input type="text" id="templateKeywords" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="templateText">Template Text</label>
+                            <textarea id="templateText" class="large-textarea" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="primary-button">Save Template</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/scripts.js"></script>
+</body>
+</html>
